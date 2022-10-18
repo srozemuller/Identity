@@ -1,14 +1,35 @@
 Param(
-    $refreshTokenCachePath = (Join-Path $env:APPDATA -ChildPath "azRfTknCache.cf"),
-    $refreshToken,
-    $tenantId,
-    [Parameter(Mandatory = $true)]$userUPN,
+    [Parameter(Mandatory)][string]$KeyVaultUri, # Like https://myOwnKeyVault.vault.azure.net
+    [Parameter(Mandatory)][string]$KeyVaultSecretName,
+    [Parameter()]$refreshToken,
+    [Parameter(Mandatory)][string]$TenantId,
     $resource = "https://main.iam.ad.ext.azure.com",
     $clientId = "1950a258-227b-4e31-a9cf-717495945fc2" #use 1b730954-1685-4b74-9bfd-dac224a7b894 for audit/sign in logs or other things that only work through the AzureAD module, use d1ddf0e4-d672-4dae-b554-9d5bdfd93547 for Intune
 )
 
-if (!$tenantId) {
-    $tenantId = (Invoke-RestMethod "https://login.windows.net/$($userUPN.Split("@")[1])/.well-known/openid-configuration" -Method GET).userinfo_endpoint.Split("/")[3]
+function Set-KvSecret {
+    param (
+        [Parameter(Mandatory)]
+        [string]$KeyVaultUri,
+        [Parameter(Mandatory)]
+        [string]$KeyVaultSecret,
+        [Parameter(Mandatory)]
+        [string]$KeyVaultSecretValue
+    )
+
+    $secretUri = "{0}/secrets/{1}?api-version=7.3" -f $KeyVaultUri, $KeyVaultSecret
+    $secretBody = @{
+        value = $KeyVaultSecretValue
+    } | ConvertTo-Json -Depth 5
+
+    $secretParameters = @{
+        uri     = $secretUri
+        method  = "PUT"
+        headers = $headers
+        body    = $secretBody
+    }
+    $secret = Invoke-RestMethod @secretParameters
+    $secret.value
 }
 
 if ($refreshToken) {
@@ -24,7 +45,7 @@ if ($refreshToken) {
     }
 }
 
-if ([System.IO.File]::Exists($refreshTokenCachePath) -and !$refreshToken) {
+if ($KeyVaultUri -and $refreshToken) {
     try {
         write-verbose "getting refresh token from cache"
         $refreshToken = Get-Content $refreshTokenCachePath -ErrorAction Stop | ConvertTo-SecureString -ErrorAction Stop
@@ -77,10 +98,15 @@ if (!$refreshToken) {
     }
 }
 
-if ($refreshToken) {
+if ($KeyVaultUri -and $refreshToken) {
     write-verbose "caching refresh token"
-    Set-Content -Path $refreshTokenCachePath -Value ($refreshToken | ConvertTo-SecureString -AsPlainText -Force -ErrorAction Stop | ConvertFrom-SecureString -ErrorAction Stop) -Force -ErrorAction Continue | Out-Null
-    write-verbose "refresh token cached"
+    try {
+        Set-KvSecret -KeyVaultUri $KeyVaultUri -KeyVaultSecret $KeyVaultSecretName -KeyVaultSecretValue $refreshToken
+        write-verbose "refresh token stored in Key Vault"
+    }
+    catch {
+        Write-Output "Not able to write secret to Key Vault"
+    }
 }
 else {
     Throw "No refresh token found in cache and no valid refresh token passed or received after login, cannot continue"
