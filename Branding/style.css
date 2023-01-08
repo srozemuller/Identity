@@ -44,7 +44,6 @@ a:active
 .ext-header
 {
     /* Styles for the header at the top of the page */
-    background-color: blue;
 }
 
 .ext-header-logo
@@ -54,8 +53,10 @@ a:active
 
 .ext-middle
 {
+    background-image: url("https://github.com/srozemuller/Identity/raw/main/Branding/bg-light.jpeg");
+    background-repeat: no-repeat;
+    background-size: auto;
     /* Styles for the container in the default lightbox template that alligns the sign in box vertically to the middle and horizontally to the center */
-    background-color: blue;
 }
 
 .ext-vertical-split-main-section
