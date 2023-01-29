@@ -24,21 +24,23 @@ foreach ($row in $csv) {
 	try {
 		$deleteDeviceIntuneUrl = "https://graph.microsoft.com/beta/deviceManagement/managedDevices('{0}')" -f $row.Id
 		$deviceInfo = Invoke-RestMethod -Method Get -Uri $deleteDeviceIntuneUrl -Headers $AuthHeader
+        if ($deviceInfo){
+            Write-Information "Deleting device $($row.Id) from Intune" -InformationAction Continue
+            Invoke-RestMethod -Method Delete -Uri $deleteDeviceIntuneUrl -Headers $AuthHeader
+        }
 	} catch {
-		Write-Host "Error getting device $($row.Id) from Intune"
+		Write-Host "Error removing device $($row.Id) from Intune"
 	}
 	try {
 		$getAadDeviceUrl = "https://graph.microsoft.com/beta/devices?`$filter=deviceId eq '{0}'" -f $deviceInfo.azureADDeviceId
 		$deviceAadInfo = Invoke-RestMethod -Method Get -Uri $getAadDeviceUrl -Headers $AuthHeader
 		$deleteAadDeviceUrl = "https://graph.microsoft.com/beta/devices/{0}" -f $deviceAadInfo.value.id
+        if ($deviceAadInfo.value){
+            Write-Information "Deleting device $($row.Id) from Azure AD" -InformationAction Continue
+            Invoke-RestMethod -Method Delete -Uri $deleteAadDeviceUrl -Headers $AuthHeader
+        }
 	} catch {
-		Write-Host "Error getting device $($row.Id) from Azure AD"
+		Write-Host "Error removing device $($row.Id) from Azure AD, maybe it was already removed"
 	}
-	try {
-		Invoke-RestMethod -Method Delete -Uri $deleteDeviceIntuneUrl -Headers $AuthHeader
-    	Invoke-RestMethod -Method Delete -Uri $deleteAadDeviceUrl -Headers $AuthHeader
-	}
-	catch {
-		Write-Host "Error deleting device $($row.Id), $_"
-	}
+
 }
