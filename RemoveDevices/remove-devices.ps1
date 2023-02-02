@@ -1,7 +1,9 @@
 [CmdletBinding()]
 param (
     [Parameter()]
-    [string]$PathToCsv
+    [string]$PathToCsv,
+    [Parameter()]
+    [string]$Delimiter = ","
 )
 
 try {
@@ -19,7 +21,7 @@ $authHeader = @{
     Authorization  = 'Bearer ' + $token.AccessToken
 }
 
-$csv = Import-Csv -Path $PathToCsv
+$csv = Import-Csv -Path $PathToCsv -delimiter $Delimiter
 foreach ($row in $csv) {
 	try {
 		$deleteDeviceIntuneUrl = "https://graph.microsoft.com/beta/deviceManagement/managedDevices('{0}')" -f $row.Id
