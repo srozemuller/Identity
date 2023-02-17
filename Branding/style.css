@@ -6,19 +6,19 @@
 body
 {
     /* Styles for the whole page */
+    background: url('https://github.com/urltotheimage.jpg');
 }
 
 a,
 a:link
 {
     /* Styles for links */
-    color: yellow;
+    color: grey;
 }
 
 a:hover
 {
     /* Styles for links when the mouse is over the link */
-    color: yellow;
 }
 
 a:focus
@@ -33,7 +33,7 @@ a:focus:hover
 
 a:active
 {
-    color: yellow;
+
 }
 
 .ext-background-image
@@ -53,12 +53,8 @@ a:active
 
 .ext-middle
 {
-    background-image: url("https://github.com/srozemuller/Identity/raw/main/Branding/bg-light.jpeg");
-    background-repeat: no-repeat;
-    background-size: auto;
-    /* Styles for the container in the default lightbox template that alligns the sign in box vertically to the middle and horizontally to the center */
-}
 
+}
 .ext-vertical-split-main-section
 {
     /* Styles for the container in the vertical split (ADFS) template that contains both a sign in box and a background */
@@ -72,6 +68,7 @@ a:active
 .ext-sign-in-box
 {
     /* Styles for the sign in box container */
+    opacity: 90%;
 }
 
 .ext-title
@@ -87,6 +84,18 @@ a:active
 .ext-button.ext-primary
 {
     /* Styles for primary buttons */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 0px;
+    border: none;
+    background: #ccc;
+    box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), inset 0px 0.5px 0.5px rgba(255, 255, 255, 0.5), 0px 0px 0px 0.5px rgba(0, 0, 0, 0.12);
+    color: #222;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .ext-button.ext-primary:hover
@@ -97,6 +106,8 @@ a:active
 .ext-button.ext-primary:focus
 {
     /* Styles for primary buttons when the button has focus */
+    box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+    outline: 0;
 }
 
 .ext-button.ext-primary:focus:hover
