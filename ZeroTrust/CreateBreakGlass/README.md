@@ -1,0 +1,1 @@
+This script is related to this blogpost: https://www.rozemuller.com/configure-break-glass-accounts-infrastructure-automated/
