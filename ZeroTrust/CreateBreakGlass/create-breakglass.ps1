@@ -26,6 +26,11 @@ $resourceGroup = "resource-group"
 $laWorkspaceName = "log-analytics-workspace"
 $microsoftDomain = "xx.onmicrosoft.com"
 
+Install-Module Az.Accounts -Force
+Import-Module Az.Accounts
+
+Connect-AzAccount
+
 # Get the access token for the Azure and Graph API
 $graphHeader = @{
     'Content-Type' = 'application/json'
