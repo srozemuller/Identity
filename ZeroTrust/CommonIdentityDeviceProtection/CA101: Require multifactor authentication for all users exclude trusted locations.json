@@ -1,0 +1,62 @@
+{
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced",
+    "conditions": {
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "clientAppTypes": [
+            "all"
+        ],
+        "servicePrincipalRiskLevels": [],
+        "clients": null,
+        "platforms": null,
+        "locations": {
+            "includeLocations": [
+                "All"
+            ],
+            "excludeLocations": [
+                "AllTrusted"
+            ]
+        },
+        "signInRiskDetections": null,
+        "times": null,
+        "deviceStates": null,
+        "devices": null,
+        "clientApplications": null,
+        "applications": {
+            "includeApplications": [
+                "All"
+            ],
+            "excludeApplications": [],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "applicationFilter": null,
+            "networkAccess": null
+        },
+        "users": {
+            "includeUsers": [
+                "All"
+            ],
+            "excludeUsers": [
+                "602b7044-910a-xxxx-xxxx-bd36ae7d1e1a"
+            ],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        }
+    },
+    "grantControls": {
+        "operator": "OR",
+        "builtInControls": [
+            "mfa"
+        ],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#conditionalAccess/templates('a3d0a415-b068-4326-9251-f9cdf9feeb64')/details/grantControls/authenticationStrength/$entity",
+        "authenticationStrength": null
+    },
+    "displayName": "CA101: Require multifactor authentication for all users exclude trusted locations"
+}

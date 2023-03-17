@@ -1,0 +1,60 @@
+{
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced",
+    "conditions": {
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "clientAppTypes": [
+            "all"
+        ],
+        "servicePrincipalRiskLevels": [],
+        "clients": null,
+        "locations": null,
+        "signInRiskDetections": null,
+        "times": null,
+        "deviceStates": null,
+        "devices": null,
+        "clientApplications": null,
+        "applications": {
+            "includeApplications": [
+                "All"
+            ],
+            "excludeApplications": [],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "applicationFilter": null,
+            "networkAccess": null
+        },
+        "users": {
+            "includeUsers": [
+                "All"
+            ],
+            "excludeUsers": [],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        },
+        "platforms": {
+            "includePlatforms": [
+                "android",
+                "iOS"
+            ],
+            "excludePlatforms": []
+        }
+    },
+    "grantControls": {
+        "operator": "OR",
+        "builtInControls": [
+            "approvedApplication",
+            "compliantApplication"
+        ],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#conditionalAccess/templates('6acdf4c3-6815-485c-a57d-2c349d517ba0')/details/grantControls/authenticationStrength/$entity",
+        "authenticationStrength": null
+    },
+    "displayName": "CA103: Require approved client apps and app protection for all users"
+}

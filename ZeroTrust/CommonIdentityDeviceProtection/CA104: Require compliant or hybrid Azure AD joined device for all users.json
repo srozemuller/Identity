@@ -1,0 +1,62 @@
+{
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced",
+    "conditions": {
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "clientAppTypes": [
+            "all"
+        ],
+        "servicePrincipalRiskLevels": [],
+        "clients": null,
+        "locations": null,
+        "signInRiskDetections": null,
+        "times": null,
+        "deviceStates": null,
+        "devices": null,
+        "clientApplications": null,
+        "applications": {
+            "includeApplications": [
+                "All"
+            ],
+            "excludeApplications": [],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "applicationFilter": null,
+            "networkAccess": null
+        },
+        "users": {
+            "includeUsers": [
+                "All"
+            ],
+            "excludeUsers": [
+                "602b7044-910a-xxxx-xxxx-bd36ae7d1e1a"
+            ],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        },
+        "platforms": {
+            "includePlatforms": [
+                "windows",
+                "macOS"
+            ],
+            "excludePlatforms": []
+        }
+    },
+    "grantControls": {
+        "operator": "OR",
+        "builtInControls": [
+            "compliantDevice",
+            "domainJoinedDevice"
+        ],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#conditionalAccess/templates('927c884e-7888-4e81-abc4-bd56ded28985')/details/grantControls/authenticationStrength/$entity",
+        "authenticationStrength": null
+    },
+    "displayName": "CA104: Require compliant or hybrid Azure AD joined device for all users"
+}
