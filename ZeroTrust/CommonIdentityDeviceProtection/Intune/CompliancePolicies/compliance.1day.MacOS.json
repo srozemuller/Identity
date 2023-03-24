@@ -1,0 +1,43 @@
+{
+    "@odata.type": "#microsoft.graph.macOSCompliancePolicy",
+    "displayName": "Compliancy - MacOS",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "description": null,
+    "passwordRequired": true,
+    "passwordBlockSimple": true,
+    "passwordExpirationDays": 90,
+    "passwordMinimumLength": 8,
+    "passwordMinutesOfInactivityBeforeLock": 5,
+    "passwordPreviousPasswordBlockCount": 5,
+    "passwordMinimumCharacterSetCount": 1,
+    "passwordRequiredType": "deviceDefault",
+    "osMinimumVersion": "13.0",
+    "osMaximumVersion": null,
+    "osMinimumBuildVersion": "22A380",
+    "osMaximumBuildVersion": null,
+    "systemIntegrityProtectionEnabled": true,
+    "deviceThreatProtectionEnabled": false,
+    "deviceThreatProtectionRequiredSecurityLevel": "unavailable",
+    "advancedThreatProtectionRequiredSecurityLevel": "unavailable",
+    "storageRequireEncryption": false,
+    "gatekeeperAllowedAppSource": "macAppStoreAndIdentifiedDevelopers",
+    "firewallEnabled": true,
+    "firewallBlockAllIncoming": false,
+    "firewallEnableStealthMode": false,
+    "scheduledActionsForRule": [
+        {
+            "ruleName": null,
+            "scheduledActionConfigurations": [
+                {
+                    "id": "52f0e61c-04b1-465b-8540-adf0d2417402",
+                    "gracePeriodHours": 24,
+                    "actionType": "block",
+                    "notificationTemplateId": "00000000-0000-0000-0000-000000000000",
+                    "notificationMessageCCList": []
+                }
+            ]
+        }
+    ]
+}

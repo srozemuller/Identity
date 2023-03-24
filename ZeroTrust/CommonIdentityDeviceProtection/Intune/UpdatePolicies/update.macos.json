@@ -1,0 +1,21 @@
+{
+    "@odata.type": "#microsoft.graph.macOSSoftwareUpdateConfiguration",
+    "displayName": "macOS update policy",
+    "description": "",
+    "roleScopeTagIds": [],
+    "updateScheduleType": "updateDuringTimeWindows",
+    "criticalUpdateBehavior": "installASAP",
+    "configDataUpdateBehavior": "notConfigured",
+    "firmwareUpdateBehavior": "notConfigured",
+    "allOtherUpdateBehavior": "default",
+    "updateTimeWindowUtcOffsetInMinutes": 60,
+    "customUpdateTimeWindows": [
+        {
+            "@odata.type": "#microsoft.graph.customUpdateTimeWindow",
+            "startDay": "tuesday",
+            "endDay": "thursday",
+            "endTime": "10:00:00.0000000",
+            "startTime": "10:00:00.0000000"
+        }
+    ]
+}

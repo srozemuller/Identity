@@ -1,0 +1,33 @@
+{
+    "@odata.type": "#microsoft.graph.iosCompliancePolicy",
+    "displayName": "iOS Common Compliancy",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "scheduledActionsForRule": [
+        {
+            "ruleName": "PasswordRequired",
+            "scheduledActionConfigurations": [
+                {
+                    "actionType": "block",
+                    "gracePeriodHours": 24,
+                    "notificationTemplateId": "",
+                    "notificationMessageCCList": []
+                }
+            ]
+        }
+    ],
+    "deviceThreatProtectionRequiredSecurityLevel": "unavailable",
+    "advancedThreatProtectionRequiredSecurityLevel": "unavailable",
+    "passcodeRequiredType": "numeric",
+    "securityBlockJailbrokenDevices": true,
+    "osMinimumVersion": "16",
+    "passcodeRequired": true,
+    "passcodeMinimumLength": 6,
+    "passcodeMinutesOfInactivityBeforeLock": 1,
+    "passcodeMinutesOfInactivityBeforeScreenTimeout": 1,
+    "passcodeExpirationDays": 90,
+    "passcodePreviousPasscodeBlockCount": 2,
+    "passcodeBlockSimple": true,
+    "deviceThreatProtectionEnabled": false
+}

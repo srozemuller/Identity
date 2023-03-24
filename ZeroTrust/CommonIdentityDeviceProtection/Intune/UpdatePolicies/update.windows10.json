@@ -1,0 +1,11 @@
+{
+    "displayName": "Windows 10 OS Update",
+    "description": "",
+    "featureUpdateVersion": "Windows 10, version 22H2",
+    "roleScopeTagIds": [],
+    "rolloutSettings": {
+        "offerStartDateTimeInUTC": null,
+        "offerEndDateTimeInUTC": null,
+        "offerIntervalInDays": null
+    }
+}

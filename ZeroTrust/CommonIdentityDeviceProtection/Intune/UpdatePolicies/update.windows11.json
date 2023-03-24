@@ -1,0 +1,11 @@
+{
+    "displayName": "Windows 11 OS Update",
+    "description": "",
+    "featureUpdateVersion": "Windows 11, version 22H2",
+    "roleScopeTagIds": [],
+    "rolloutSettings": {
+        "offerStartDateTimeInUTC": null,
+        "offerEndDateTimeInUTC": null,
+        "offerIntervalInDays": null
+    }
+}

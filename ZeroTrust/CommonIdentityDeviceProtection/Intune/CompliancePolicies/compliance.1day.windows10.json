@@ -1,0 +1,36 @@
+{
+    "@odata.type": "#microsoft.graph.windows10CompliancePolicy",
+    "displayName": "Windows 10 Compliance 1 day",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "scheduledActionsForRule": [
+        {
+            "ruleName": "PasswordRequired",
+            "scheduledActionConfigurations": [
+                {
+                    "actionType": "block",
+                    "gracePeriodHours": 24,
+                    "notificationTemplateId": "",
+                    "notificationMessageCCList": []
+                }
+            ]
+        }
+    ],
+    "deviceThreatProtectionRequiredSecurityLevel": "unavailable",
+    "passwordRequiredType": "deviceDefault",
+    "bitLockerEnabled": true,
+    "osMinimumVersion": "10.19045.2546",
+    "passwordRequired": true,
+    "passwordBlockSimple": true,
+    "passwordMinimumLength": 8,
+    "passwordMinutesOfInactivityBeforeLock": 5,
+    "passwordExpirationDays": 60,
+    "passwordPreviousPasswordBlockCount": 5,
+    "activeFirewallRequired": true,
+    "antivirusRequired": true,
+    "antiSpywareRequired": true,
+    "defenderEnabled": true,
+    "rtpEnabled": false,
+    "deviceThreatProtectionEnabled": false
+}

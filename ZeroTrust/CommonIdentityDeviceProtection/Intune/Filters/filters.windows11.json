@@ -1,0 +1,6 @@
+{
+    "displayName" : "Windows 11",
+    "description" : "This filter finds all Windows 11 machines",
+    "platform" : "windows10AndLater",
+    "rule" : "(device.osVersion -contains \"10.0.22000\") or (device.osVersion -contains \"10.0.22621\") and (device.model -ne \"Virtual Machine\")"
+} 

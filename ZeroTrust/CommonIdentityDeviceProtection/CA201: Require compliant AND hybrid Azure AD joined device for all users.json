@@ -30,7 +30,7 @@
                 "All"
             ],
             "excludeUsers": [
-                "602b7044-910a-xxxx-xxxx-bd36ae7d1e1a"
+                "602b7044-910a-4155-b3fd-bd36ae7d1e1a"
             ],
             "includeGroups": [],
             "excludeGroups": [],
@@ -48,7 +48,7 @@
         }
     },
     "grantControls": {
-        "operator": "OR",
+        "operator": "AND",
         "builtInControls": [
             "compliantDevice",
             "domainJoinedDevice"
@@ -58,5 +58,5 @@
         "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#conditionalAccess/templates('927c884e-7888-4e81-abc4-bd56ded28985')/details/grantControls/authenticationStrength/$entity",
         "authenticationStrength": null
     },
-    "displayName": "CA104: Require compliant or hybrid Azure AD joined device for all users"
+    "displayName": "CA201: Require compliant and hybrid Azure AD joined device for all users"
 }

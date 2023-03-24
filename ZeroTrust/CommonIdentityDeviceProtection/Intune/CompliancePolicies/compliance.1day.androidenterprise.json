@@ -1,0 +1,40 @@
+{
+    "@odata.type": "#microsoft.graph.androidDeviceOwnerCompliancePolicy",
+    "displayName": "Android Enterprise Full Managed",
+    "roleScopeTagIds": [
+        "0"
+    ],
+    "scheduledActionsForRule": [
+        {
+            "ruleName": "PasswordRequired",
+            "scheduledActionConfigurations": [
+                {
+                    "actionType": "block",
+                    "gracePeriodHours": 24,
+                    "notificationTemplateId": "",
+                    "notificationMessageCCList": []
+                }
+            ]
+        }
+    ],
+    "localActions": [],
+    "passwordMinimumLength": null,
+    "passwordMinimumLetterCharacters": null,
+    "passwordMinimumLowerCaseCharacters": null,
+    "passwordMinimumUpperCaseCharacters": null,
+    "passwordMinimumNonLetterCharacters": null,
+    "passwordMinimumNumericCharacters": null,
+    "passwordMinimumSymbolCharacters": null,
+    "deviceThreatProtectionRequiredSecurityLevel": "unavailable",
+    "advancedThreatProtectionRequiredSecurityLevel": "unavailable",
+    "passwordRequiredType": "lowSecurityBiometric",
+    "osMinimumVersion": "14",
+    "passwordRequired": true,
+    "passwordMinutesOfInactivityBeforeLock": 1,
+    "passwordExpirationDays": 30,
+    "passwordPreviousPasswordCountToBlock": 2,
+    "storageRequireEncryption": true,
+    "deviceThreatProtectionEnabled": false,
+    "securityRequireSafetyNetAttestationBasicIntegrity": true,
+    "securityRequireSafetyNetAttestationCertifiedDevice": false
+}

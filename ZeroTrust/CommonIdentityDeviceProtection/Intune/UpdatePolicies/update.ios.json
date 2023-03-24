@@ -1,0 +1,21 @@
+{
+    "@odata.type": "#microsoft.graph.iosUpdateConfiguration",
+    "displayName": "iOS OS Updates",
+    "description": "",
+    "scheduledInstallDays": [],
+    "activeHoursStart": "00:00:00.0000000",
+    "activeHoursEnd": "00:00:00.0000000",
+    "roleScopeTagIds": [],
+    "utcTimeOffsetInMinutes": 60,
+    "updateScheduleType": "updateDuringTimeWindows",
+    "desiredOsVersion": null,
+    "customUpdateTimeWindows": [
+        {
+            "@odata.type": "#microsoft.graph.customUpdateTimeWindow",
+            "startDay": "tuesday",
+            "endDay": "thursday",
+            "endTime": "10:00:00.0000000",
+            "startTime": "10:00:00.0000000"
+        }
+    ]
+}
