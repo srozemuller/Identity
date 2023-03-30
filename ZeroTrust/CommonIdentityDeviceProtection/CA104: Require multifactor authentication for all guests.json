@@ -9,7 +9,13 @@
         ],
         "servicePrincipalRiskLevels": [],
         "clients": null,
-        "locations": null,
+        "platforms": null,
+        "locations": {
+            "includeLocations": [
+                "All"
+            ],
+            "excludeLocations": []
+        },
         "signInRiskDetections": null,
         "times": null,
         "deviceStates": null,
@@ -26,9 +32,7 @@
             "networkAccess": null
         },
         "users": {
-            "includeUsers": [
-                "All"
-            ],
+            "includeUsers": [],
             "excludeUsers": [
                 "602b7044-910a-4155-b3fd-bd36ae7d1e1a"
             ],
@@ -36,33 +40,25 @@
             "excludeGroups": [],
             "includeRoles": [],
             "excludeRoles": [],
-            "includeGuestsOrExternalUsers": null,         
-            "excludeGuestsOrExternalUsers": {
+            "includeGuestsOrExternalUsers": {
                 "guestOrExternalUserTypes": "ServiceProvider,InternalGuest,B2bDirectConnectUser,B2bCollaborationMember,B2bCollaborationGuest,OtherExternalUser",
                 "externalTenants": {
                     "membershipKind": "all",
                     "@odata.type": "#microsoft.graph.conditionalAccessAllExternalTenants"
                 }
-            }
-        },
-        "platforms": {
-            "includePlatforms": [
-                "windows",
-                "macOS"
-            ],
-            "excludePlatforms": []
+            },
+            "excludeGuestsOrExternalUsers": null
         }
     },
     "grantControls": {
-        "operator": "AND",
+        "operator": "OR",
         "builtInControls": [
-            "compliantDevice",
-            "domainJoinedDevice"
+            "mfa"
         ],
         "customAuthenticationFactors": [],
         "termsOfUse": [],
-        "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#conditionalAccess/templates('927c884e-7888-4e81-abc4-bd56ded28985')/details/grantControls/authenticationStrength/$entity",
+        "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#conditionalAccess/templates('a3d0a415-b068-4326-9251-f9cdf9feeb64')/details/grantControls/authenticationStrength/$entity",
         "authenticationStrength": null
     },
-    "displayName": "CA201: Require compliant and hybrid Azure AD joined device for all users"
+    "displayName": "CA101: Require multifactor authentication for all users exclude trusted locations"
 }
