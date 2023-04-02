@@ -45,7 +45,13 @@
             "includeRoles": [],
             "excludeRoles": [],
             "includeGuestsOrExternalUsers": null,
-            "excludeGuestsOrExternalUsers": null
+            "excludeGuestsOrExternalUsers": {
+                "guestOrExternalUserTypes": "ServiceProvider,InternalGuest,B2bDirectConnectUser,B2bCollaborationMember,B2bCollaborationGuest,OtherExternalUser",
+                "externalTenants": {
+                    "membershipKind": "all",
+                    "@odata.type": "#microsoft.graph.conditionalAccessAllExternalTenants"
+                }
+            }
         }
     },
     "grantControls": {

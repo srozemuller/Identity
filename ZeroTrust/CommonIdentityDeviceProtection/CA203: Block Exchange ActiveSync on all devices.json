@@ -1,0 +1,50 @@
+{
+    "conditions": {
+        "applications": {
+            "includeApplications": [
+                "00000002-0000-0ff1-ce00-000000000000"
+            ],
+            "excludeApplications": [],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "networkAccess": null
+        },
+        "clients": null,
+        "users": {
+            "includeUsers": [
+                "All"
+            ],
+            "excludeUsers": [],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        },
+        "clientApplications": null,
+        "platforms": null,
+        "locations": null,
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "signInRiskDetections": null,
+        "clientAppTypes": [
+            "exchangeActiveSync"
+        ],
+        "times": null,
+        "devices": null,
+        "servicePrincipalRiskLevels": []
+    },
+    "displayName": "CA203: Block Exchange ActiveSync on all devices",
+    "grantControls": {
+        "operator": "AND",
+        "builtInControls": [
+            "compliantApplication"
+        ],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength": null
+    },
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced"
+}

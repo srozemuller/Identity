@@ -1,0 +1,56 @@
+{
+    "conditions": {
+        "applications": {
+            "includeApplications": [
+                "All"
+            ],
+            "excludeApplications": [],
+            "includeUserActions": [],
+            "includeAuthenticationContextClassReferences": [],
+            "networkAccess": null
+        },
+        "clients": null,
+        "users": {
+            "includeUsers": [
+                "All"
+            ],
+            "excludeUsers": [],
+            "includeGroups": [],
+            "excludeGroups": [],
+            "includeRoles": [],
+            "excludeRoles": [],
+            "includeGuestsOrExternalUsers": null,
+            "excludeGuestsOrExternalUsers": null
+        },
+        "clientApplications": null,
+        "platforms": {
+            "includePlatforms": [
+                "android",
+                "iOS"
+            ],
+            "excludePlatforms": []
+        },
+        "locations": null,
+        "userRiskLevels": [],
+        "signInRiskLevels": [],
+        "signInRiskDetections": null,
+        "clientAppTypes": [
+            "all"
+        ],
+        "times": null,
+        "devices": null,
+        "servicePrincipalRiskLevels": []
+    },
+    "displayName": "CA202: Require app protection policy with mobile devices",
+    "grantControls": {
+        "operator": "AND",
+        "builtInControls": [
+            "compliantApplication"
+        ],
+        "customAuthenticationFactors": [],
+        "termsOfUse": [],
+        "authenticationStrength": null
+    },
+    "sessionControls": null,
+    "state": "enabledForReportingButNotEnforced"
+}
