@@ -1,7 +1,7 @@
 {
     "@odata.context": "https://graph.microsoft.com/beta/$metadata#deviceAppManagement/iosManagedAppProtections/$entity",
-    "displayName": "Level 1: Protect Microsoft Apps",
-    "description": "Protecs data using in Microsoft Apps",
+    "displayName": "Level 1: All Apps",
+    "description": "Protects data using in Microsoft Apps",
     "roleScopeTagIds": [
         "0"
     ],
@@ -58,7 +58,7 @@
     "dialerRestrictionLevel": "allApps",
     "gracePeriodToBlockAppsDuringOffClockHours": null,
     "targetedAppManagementLevels": "unspecified",
-    "appGroupType": "allMicrosoftApps",
+    "appGroupType": "AllApps",
     "appDataEncryptionType": "whenDeviceLocked",
     "minimumRequiredSdkVersion": null,
     "deployedAppCount": 0,

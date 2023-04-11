@@ -104,15 +104,5 @@
     "maximumAllowedDeviceThreatLevel": "notConfigured",
     "mobileThreatDefenseRemediationAction": "block",
     "mobileThreatDefensePartnerPriority": null,
-    "apps": [],
-    "assignments": [
-        {
-            "target": {
-                "groupId": "d5eab6d2-d828-4565-842e-89e0690b2a2a",
-                "deviceAndAppManagementAssignmentFilterId": null,
-                "deviceAndAppManagementAssignmentFilterType": "none",
-                "@odata.type": "#microsoft.graph.groupAssignmentTarget"
-            }
-        }
-    ]
+    "apps": []
 }
