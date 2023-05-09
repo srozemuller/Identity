@@ -1,0 +1,82 @@
+{
+    "conditions": {
+        "users": {
+            "allUsers": 1,
+            "excluded": {
+                "userIds": [],
+                "groupIds": []
+            },
+            "included": {
+                "userIds": ["7e53bc5e-833b-4892-abf3-684b106f1f9f"],
+                "groupIds": []
+            }
+        },
+        "servicePrincipals": {
+            "allServicePrincipals": 1,
+            "includeAllMicrosoftApps": false,
+            "excludeAllMicrosoftApps": false,
+            "userActions": [],
+            "stepUpTags": []
+        },
+        "conditions": {
+            "minUserRisk": {
+                "noRisk": false,
+                "lowRisk": false,
+                "mediumRisk": false,
+                "highRisk": true,
+                "applyCondition": true
+            },
+            "minSigninRisk": {
+                "noRisk": true,
+                "lowRisk": false,
+                "mediumRisk": false,
+                "highRisk": false,
+                "applyCondition": true
+            },
+            "servicePrincipalRiskLevels": {
+                "noRisk": true,
+                "lowRisk": false,
+                "mediumRisk": false,
+                "highRisk": false,
+                "applyCondition": true
+            },
+            "devicePlatforms": {
+                "all": 2,
+                "included": {
+                    "android": false,
+                    "ios": false,
+                    "windowsPhone": false,
+                    "windows": false,
+                    "macOs": false,
+                    "linux": false
+                },
+                "excluded": null,
+                "applyCondition": false
+            },
+            "locations": {
+                "applyCondition": true,
+                "includeLocationType": 2,
+                "excludeAllTrusted": false
+            },
+            "clientAppsV2": {
+                "applyCondition": false,
+                "webBrowsers": false,
+                "mobileDesktop": false,
+                "modernAuth": false,
+                "exchangeActiveSync": false,
+                "onlyAllowSupportedPlatforms": false,
+                "otherClients": false
+            },
+            "deviceState": {
+                "includeDeviceStateType": 1,
+                "excludeDomainJoionedDevice": false,
+                "excludeCompliantDevice": false,
+                "applyCondition": true
+            }
+        }
+    },
+    "ipAddress": "",
+    "country": "",
+    "device": {},
+    "authenticationStrengths": []
+}
