@@ -1,0 +1,107 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/srozemuller/repos/Identity/SimeonCloud/app/simeon/simeon.csproj": {}
+  },
+  "projects": {
+    "/Users/srozemuller/repos/Identity/SimeonCloud/app/simeon/simeon.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/srozemuller/repos/Identity/SimeonCloud/app/simeon/simeon.csproj",
+        "projectName": "simeon",
+        "projectPath": "/Users/srozemuller/repos/Identity/SimeonCloud/app/simeon/simeon.csproj",
+        "packagesPath": "/Users/srozemuller/.nuget/packages/",
+        "outputPath": "/Users/srozemuller/repos/Identity/SimeonCloud/app/simeon/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/srozemuller/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Azure.ActiveDirectory.GraphClient": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Graph": {
+              "target": "Package",
+              "version": "[5.26.0, )"
+            },
+            "Microsoft.Graph.Core": {
+              "target": "Package",
+              "version": "[3.0.11, )"
+            },
+            "Microsoft.Identity.Client": {
+              "target": "Package",
+              "version": "[4.56.0, )"
+            },
+            "Microsoft.IdentityModel.Clients.ActiveDirectory": {
+              "target": "Package",
+              "version": "[5.3.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.306/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

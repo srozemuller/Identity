@@ -168,7 +168,7 @@ $queryValue = Invoke-RestMethod -Uri $queryUrl -Method PUT -Headers $azureHeader
 $queryValue
 
 # Get conditional access policies
-$caUrl = "{0}/beta/identity/conditionalAccess/policies" -f $graphUrl 
+$caUrl = "{0}/beta/identity/conditionalAccess/policies" -f $graphUrl
 $caPolicies = Invoke-RestMethod -Uri $caUrl -Method GET -Headers $graphHeader
 $caBody = @{
     conditions = @{
@@ -186,3 +186,13 @@ $caPolicies.value | Where-Object {$_.grantControls.builtInControls -match "mfa"}
     $caValue
 }
 
+$pass = ConvertTo-SecureString 'tempPass' -AsPlainText -Force
+$certGraphHeader = @{
+	'Content-Type' = 'application/json'
+	Authorization = "Bearer {0}" -f (Get-AzAccessToken -ResourceUrl "https://graph.microsoft.com").Token
+}
+
+$userUrl = "https://graph.microsoft.com/beta/users?`$filter=userPrincipalName eq 'sander@rozemuller.com'"
+
+$users = Invoke-WebRequest -Uri $userUrl -Method GET -Headers $certGraphHeader
+$user = ($users.Content | ConvertFrom-Json).value
