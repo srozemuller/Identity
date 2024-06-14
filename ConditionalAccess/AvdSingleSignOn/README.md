@@ -1,0 +1,1 @@
+For more information, see [my blog about adding Windows Cloud Login application to CA automtated](https://rozemuller.com/add-windows-cloud-login-application-to-CA-automtated).

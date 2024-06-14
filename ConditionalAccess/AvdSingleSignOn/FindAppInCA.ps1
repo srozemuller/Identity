@@ -1,9 +1,5 @@
 [CmdletBinding(DefaultParameterSetName = 'Id')]
 param (
-    [parameter(Mandatory, ValueFromPipelineByPropertyName)]
-    [ValidateNotNullOrEmpty()]
-    [string]$ApplicationName = "Microsoft Remote Desktop",
-
     [parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
     [switch]$UpdatePolicies = $false,
@@ -18,7 +14,11 @@ param (
 
     [parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
-    [string]$AccessToken
+    [string]$AccessToken,
+
+    [parameter(Mandatory, ValueFromPipelineByPropertyName)]
+    [ValidateNotNullOrEmpty()]
+    [string]$SubscriptionId,
 )
 
 function Get-YesNoResponse {
@@ -38,41 +38,42 @@ function Get-YesNoResponse {
     }
 }
 
-# Search for the application ID of the provided application name
-function Get-AppId {
-    param (
-        [string]$AppName
-    )
-    $appInfo = Invoke-MgGraphRequest -Method GET -Uri "beta/servicePrincipals?`$select=id,appId,displayname,Description,CreatedDateTime&`$filter=displayName eq '$AppName'" -OutputType Json | ConvertFrom-Json
-    return $appInfo.value.appId
-}
 
 if ($AccessToken) {
     Connect-MgGraph -AccessToken $AccessToken -Scopes "https://graph.microsoft.com/.default"
+    Connect-Avd -AccessToken $AccessToken -SubscriptionId $SubscriptionId
 }
 else {
     Connect-MgGraph -Scopes "https://graph.microsoft.com/.default"
+    Connect-AzAccount
+    Connect-Avd -AccessToken $(Get-AzAccessToken).token -subscriptionId $SubscriptionId
 }
 
-# Windows Cloud Login must be added to the policy, if Micoroosft Remote Desktop is assigned already
-$WindowsCloudLoginApp = "Windows Cloud Login"
-$applicationId = Get-AppId -AppName $WindowsCloudLoginApp
+# Check if the hostpool has SSO enabled
+$ssoEnabled = $false
+$hostpools = Get-AvdHostPool
+$hostpools.ForEach({
+    $hostpool = $_
+    if ($hostpool.properties.customrdpproperty.Contains("enablerdsaadauth:i:1")){
+        Write-Output "Hostpool $($hostpool.name) has SSO enabled"
+        $ssoEnabled = $true
+    }
+})
+# Windows Cloud Login application Id
+$applicationId = "270efc09-cd0d-444b-a71f-39af4910ec45"
+if ($ssoEnabled){
+    $caPolicies = Invoke-MgGraphRequest -Method GET -Uri "beta/identity/conditionalAccess/policies/" -OutputType Json | ConvertFrom-Json
+    $caPolicies.value | ForEach-Object {
+        $policy = $_
+        Write-Information "Checking policy $($policy.displayName)" -InformationAction Continue
 
-$caPolicies = Invoke-MgGraphRequest -Method GET -Uri "beta/identity/conditionalAccess/policies/" -OutputType Json | ConvertFrom-Json
-$caPolicies.value | ForEach-Object {
-    $policy = $_
-    Write-Information "Checking policy $($policy.displayName)" -InformationAction Continue
-
-    # Finding all applications that are excluded or included in the policy
-    $excludedApps = $policy.Conditions.applications.excludeApplications
-    $includedApps = $policy.Conditions.applications.includeApplications
-    
-    # Check if the provided application name is included in the policy
-    if (($includedApps -ne "All") -and ($includedApps -ne "None")) {
-        $currentIdsInString = "(" + (($includedApps | ForEach-Object { "'$_'" }) -join ",") + ")"
-        $appInfo = Invoke-MgGraphRequest -Method GET -Uri "beta/servicePrincipals?`$select=id,displayname,Description,CreatedDateTime&`$filter=appId in $($currentIdsInString)" -OutputType Json | ConvertFrom-Json
-        if (($appInfo.value.DisplayName -in $ApplicationName) -and ($appInfo.value.DisplayName -notcontains $WindowsCloudLoginApp)) {
-            Write-Warning "Application $ApplicationName is assigned but $($WindowsCloudLoginApp ) is not found $($policy.displayName)"
+        # Finding all applications that are excluded or included in the policy
+        $excludedApps = $policy.Conditions.applications.excludeApplications
+        $includedApps = $policy.Conditions.applications.includeApplications
+        
+        # Check if the Windows Cloud Login is missing but has the Microsoft Remote Desktop application
+        if (($includedApps.contains("a4a365df-50f1-4397-bc59-1a1564b8bb9c")) -and (!$includedApps.contains($applicationId))) {
+            Write-Warning "Application Microsoft Remote Desktop is assigned but $($WindowsCloudLoginApp) is not found $($policy.displayName)"
             # If the -UpdatePolicies switch is provided, update the policy, otherwise it only shows the warning
             if ($UpdatePolicies.IsPresent) {
                 # If the -MakeBackup switch is provided, create a backup of the policy, default it does.
@@ -83,6 +84,7 @@ $caPolicies.value | ForEach-Object {
                 # In the case of automation, the -ForceChange switch can be used to automatically add the application to the policy
                 if (!$ForceChange.IsPresent) {
                     Write-Host "Force change is enabled. Adding ($WindowsCloudLoginApp) to included apps for policy $($policy.displayName)"
+                    # Adding the application to the included applications
                     $policy.Conditions.applications.excludeApplications += $applicationId
                     try {
                         $body = @{
@@ -117,16 +119,13 @@ $caPolicies.value | ForEach-Object {
             }
         }
         else {
-            Write-Output "Applications are assigned but have nothing to do with $ApplicationName in policy $($policy.displayName)"
+            Write-Output "Applications are assigned but have nothing to do with  Microsoft Remote Desktopin policy $($policy.displayName)"
         }
-    }
+        
 
-    # Check if the provided application name is excluded in the policy
-    if (($excludedApps -ne "All") -and ($excludedApps -ne "None")) {
-        $currentIdsInString = "(" + (($excludedApps | ForEach-Object { "'$_'" }) -join ",") + ")"
-        $appInfo = Invoke-MgGraphRequest -Method GET -Uri "beta/servicePrincipals?`$select=id,displayname,Description,CreatedDateTime&`$filter=appId in $($currentIdsInString)" -OutputType Json | ConvertFrom-Json
-        if (($appInfo.value.DisplayName -in $ApplicationName) -and ($appInfo.value.DisplayName -notcontains $WindowsCloudLoginApp)) {
-            Write-Warning "Application $ApplicationName is assigned but $($WindowsCloudLoginApp ) is not found $($policy.displayName)"
+        # Check if the Windows Cloud Login is missing but has the Microsoft Remote Desktop application
+        if (($excludedApps.contains("a4a365df-50f1-4397-bc59-1a1564b8bb9c")) -and (!$excludedApps.contains($applicationId))) {
+            Write-Warning "Application  Microsoft Remote Desktop is assigned but $($WindowsCloudLoginApp) is not found $($policy.displayName)"
             # If the -UpdatePolicies switch is provided, update the policy, otherwise it only shows the warning
             if ($UpdatePolicies.IsPresent) {
                 # If the -MakeBackup switch is provided, create a backup of the policy, default it does.
@@ -171,7 +170,7 @@ $caPolicies.value | ForEach-Object {
             }
         }
         else {
-            Write-Output "Applications are assigned but have nothing to do with $ApplicationName in policy $($policy.displayName)"
+            Write-Output "Applications are assigned but have nothing to do with Windows Remote Desktop in policy $($policy.displayName)"
         }
     }
 }
