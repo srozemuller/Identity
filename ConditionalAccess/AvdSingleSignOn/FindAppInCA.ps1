@@ -38,6 +38,29 @@ function Get-YesNoResponse {
     }
 }
 
+$modules = @(
+    "Az.Avd"
+    "Az.Accounts"
+    "MgGraph"
+)
+$modules.Foreach({
+# Check if the module is installed
+$module = Get-Module -ListAvailable -Name $_
+    # If the module is not found, install it
+    if (-not $module) {
+        Write-Host "Module $_ is not found. Installing..."
+        try {
+            Install-Module -Name $_ -Force -Scope CurrentUser
+            Write-Host "Module $moduleName installed successfully."
+            Import-Module -Name $_ -Force
+        } catch {
+            Write-Error "Failed to install module $_. Error: $_"
+        }
+    } else {
+        Import-Module -Name $_ -Force
+        Write-Host "Module $_ is already installed."
+    }
+})
 
 if ($AccessToken) {
     Connect-MgGraph -AccessToken $AccessToken -Scopes "https://graph.microsoft.com/.default"
