@@ -18,7 +18,7 @@ param (
 
     [parameter(Mandatory, ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
-    [string]$SubscriptionId,
+    [string]$SubscriptionId
 )
 
 function Get-YesNoResponse {
