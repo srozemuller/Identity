@@ -1,0 +1,38 @@
+{
+  "memberBatches": [
+    {
+      "members@odata.bind": [
+        "https://graph.microsoft.com/beta/directoryObjects/4adced81-993b-4340-b4e8-28c44afb29ea",
+        "https://graph.microsoft.com/beta/directoryObjects/94f9234a-7aa9-4d38-92a9-5d9ee794330f",
+        "https://graph.microsoft.com/beta/directoryObjects/5d31d749-2c3a-468c-b5d6-c43ff6703365",
+        "https://graph.microsoft.com/beta/directoryObjects/da4702cc-d801-4ffe-8e82-8697cd683b9b",
+        "https://graph.microsoft.com/beta/directoryObjects/d0fe2112-86e8-4c3e-b314-beb2aaf9fc95",
+        "https://graph.microsoft.com/beta/directoryObjects/807395cd-47e6-4287-be41-92fdfc131d0a",
+        "https://graph.microsoft.com/beta/directoryObjects/57a3b2d7-fd72-497b-b3c6-d9229dfd2456",
+        "https://graph.microsoft.com/beta/directoryObjects/46e48148-6300-4a53-b951-64bd97fd9fc7",
+        "https://graph.microsoft.com/beta/directoryObjects/abfb6ce5-886c-43a2-860f-591934367bfe",
+        "https://graph.microsoft.com/beta/directoryObjects/a792dfaf-cccf-4938-8600-62fdb5465c74",
+        "https://graph.microsoft.com/beta/directoryObjects/94a6f9f6-5e39-4725-a8f3-43d168241b34",
+        "https://graph.microsoft.com/beta/directoryObjects/2c0610ae-df21-457b-aab8-1ca77c2b6511",
+        "https://graph.microsoft.com/beta/directoryObjects/c3ff1736-6f30-4d74-93e3-f77937ea46ea",
+        "https://graph.microsoft.com/beta/directoryObjects/67cde8ad-203a-4739-aa73-ef79a8f1ed68",
+        "https://graph.microsoft.com/beta/directoryObjects/b0598b6e-cca0-413e-a78f-3281612621a8",
+        "https://graph.microsoft.com/beta/directoryObjects/35de070b-97fe-4a2f-a6ba-19510ba7dc38",
+        "https://graph.microsoft.com/beta/directoryObjects/df7033a0-2f6a-4beb-a870-d0acb180a6e5",
+        "https://graph.microsoft.com/beta/directoryObjects/db8c9f60-8a1a-4bce-bc44-1ce265257f2d",
+        "https://graph.microsoft.com/beta/directoryObjects/d13fb59f-5704-4276-82c7-cf03ced38b3c",
+        "https://graph.microsoft.com/beta/directoryObjects/bed8f90a-1a79-4395-baf2-f04611c87fd6"
+      ]
+    },
+    {
+      "members@odata.bind": [
+        "https://graph.microsoft.com/beta/directoryObjects/2715051b-19ee-48cf-af9b-c3261f516b3b",
+        "https://graph.microsoft.com/beta/directoryObjects/2006faa8-d29e-498f-8012-34e3d771ee2f",
+        "https://graph.microsoft.com/beta/directoryObjects/07b57341-94d1-4877-a066-c8694dce3a26",
+        "https://graph.microsoft.com/beta/directoryObjects/413683f0-5d39-4972-9d30-dcff3d8fa67e",
+        "https://graph.microsoft.com/beta/directoryObjects/0f458653-d51e-4c33-8245-c3bd1a3a0fbe",
+        "https://graph.microsoft.com/beta/directoryObjects/8058943e-3ff7-406d-9c2f-f88e86d557be"
+      ]
+    }
+  ]
+}
