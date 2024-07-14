@@ -11,7 +11,7 @@ param (
     [parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
     [Validateset('Windows', 'macOS', 'iOS', 'Android', 'WindowsPhone')]
-    [string]$DeviceType,
+    [string]$DeviceType = 'Windows',
 
     [parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
@@ -19,11 +19,11 @@ param (
 
     [parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
-    [string]$AccessToken,
+    [string]$BackupPath = './',
 
-    [parameter(Mandatory, ValueFromPipelineByPropertyName)]
+    [parameter(ValueFromPipelineByPropertyName)]
     [ValidateNotNullOrEmpty()]
-    [string]$SubscriptionId
+    [string]$AccessToken
 )
 
 $modules = @(
@@ -65,6 +65,11 @@ try {
         Write-Error "Group $UserGroupName not found"
         return
     }
+    $userGroupMembers = Invoke-MgGraphRequest -Method GET -Uri "beta/groups/$($userGroup.value.id)/members" -OutputType Json | ConvertFrom-Json
+    if ($userGroupMembers.value.Count -eq 0) {
+        Write-Error "Group $UserGroupName has no members"
+        return
+    }
 }
 catch {
     Write-Error "Failed to get group $UserGroupName"
@@ -72,11 +77,11 @@ catch {
 }
 try {
     $deviceGroup = Invoke-MgGraphRequest -Method GET -Uri "beta/groups?`$filter=displayName eq '$DeviceGroupName'" -OutputType Json | ConvertFrom-Json
-
     if ($deviceGroup.value.Count -eq 0) {
         Write-Error "Group $DeviceGroupName not found"
         return
     }
+    $deviceGroupMembers = Invoke-MgGraphRequest -Method GET -Uri "beta/groups/$($deviceGroup.value.id)/members" -OutputType Json | ConvertFrom-Json
 }
 catch {
     Write-Error "Failed to get group $DeviceGroupName"
@@ -84,29 +89,29 @@ catch {
 }
 
 try {
-    $userGroupMembers = Invoke-MgGraphRequest -Method GET -Uri "beta/groups/$($userGroup.value.id)/members" -OutputType Json | ConvertFrom-Json
-    $deviceGroupMembers = Invoke-MgGraphRequest -Method GET -Uri "beta/groups/$($deviceGroup.value.id)/members" -OutputType Json | ConvertFrom-Json
     $memberList = [System.Collections.Generic.List[string]]::new()
     $ownedDevicesUrlList = [System.Collections.Generic.List[string]]::new()
-    $deviceGroupMembers.value | ForEach-Object {
-        $member = $_
-        $memberList.Add("https://graph.microsoft.com/beta/directoryObjects/$($member.id)")
-    }
-    $userGroupMembers.value | ForEach-Object {
+    # Fetch all owned devices of the users in the user group
+    $userGroupMembers.value | Where-Object {$_.'@odata.type' -eq '#microsoft.graph.user'} | ForEach-Object {
         $user = $_
         $ownedDevicesUrlList.Add("/users/$($user.id)/ownedDevices")
     }
+    $deviceGroupMembers.value | Where-Object {$_.'@odata.type' -eq '#microsoft.graph.device'}  | ForEach-Object {
+        $member = $_
+        $memberList.Add("https://graph.microsoft.com/beta/directoryObjects/$($member.id)")
+    }
+    # Making a backup of the members of the device group
     if ($memberList.Count -gt 0) {
-        Write-Information "Backing up members of group $DeviceGroupName, putting values in ./membersBackup.json" -InformationAction Continue
+        Write-Information "Backing up members of group $DeviceGroupName, putting values in $BackupPath/membersBackup.json" -InformationAction Continue
         $memberBatchBackup = Create-BodyList -bodyList $memberList
 
         $jsonOutput = @{
             memberBatches = $memberBatchBackup 
         } | Convertto-Json -Depth 99
-        $jsonOutput | Out-File -path ./membersBackup.json 
+        $jsonOutput | Out-File -path  "{0}/{1}" -f $BackupPath, "membersBackup.json" 
     }
 
-    if ($MakeDeviceGroupEmpty -and $memberList.Count -gt 0) {
+    if ($MakeDeviceGroupEmpty.IsPresent -and $memberList.Count -gt 0) {
         try {
             Write-Warning "Removing members from group $DeviceGroupName"
             $memberBatch = Create-UrlListBatchOutput -Method DELETE -urlList $memberList
@@ -129,7 +134,7 @@ try {
             })
         $devicesResponseList.responses | Where-Object {$_.status -eq 200} | ForEach-Object {
             $deviceResponse = $_.body.value
-            $deviceToAdd = $deviceResponse | Where-Object {($_.isManaged) -and $_.approximateLastSignInDateTime -gt (Get-Date).AddDays(-29)}
+            $deviceToAdd = $deviceResponse | Where-Object {($_.isManaged) -and ($_.approximateLastSignInDateTime -gt (Get-Date).AddDays(-29)) -and ($_.operatingSystem -eq $DeviceType)}
             $devicesList.Add("https://graph.microsoft.com/beta/directoryObjects/$($deviceToAdd.id)") >> $null
         }
         $deviceBatch = Create-BodyList -bodyList $devicesList
@@ -139,19 +144,7 @@ try {
     }
 }
 catch {
-    Write-Error "Failed to get group members"
+    Write-Error "Preparing device group members failed. Error: $_"
     return
 
 }
-
-<#
-Restore members to device group
-$batches = get-content ./membersBackup.json | ConvertFrom-Json
-$batches.foreach({
-        $batch = $_
-        $batch.memberBatches.foreach({
-            $test = $_ | ConvertTo-Json
-                Invoke-MgGraphRequest -Method PATCH -Body $test -Uri "/beta/groups/$($deviceGroup.value.id)"
-            })
-    })
-#>
