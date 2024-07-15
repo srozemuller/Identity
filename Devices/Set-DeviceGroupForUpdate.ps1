@@ -27,7 +27,7 @@ param (
 )
 
 $modules = @(
-    "MgGraph"
+    "MSGraph"
 )
 $modules.Foreach({
         # Check if the module is installed
@@ -108,7 +108,7 @@ try {
         $jsonOutput = @{
             memberBatches = $memberBatchBackup 
         } | Convertto-Json -Depth 99
-        $jsonOutput | Out-File -path  "{0}/{1}" -f $BackupPath, "membersBackup.json" 
+        $jsonOutput | Out-File -path ("{0}/{1}" -f $BackupPath, "membersBackup.json")
     }
 
     if ($MakeDeviceGroupEmpty.IsPresent -and $memberList.Count -gt 0) {
