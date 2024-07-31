@@ -19,6 +19,6 @@ jobs:
           allow-no-subscriptions: true    
     - name: 'Run Azure CLI commands'
       run: |
-          az account show
-          az group list
-          pwd 
+          Install-Module Maester -Scope CurrentUser
+          Connect-Maester
+          Invoke-Maester
