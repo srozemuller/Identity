@@ -5,15 +5,14 @@ permissions:
       id-token: write
       contents: read
 
-env:
-  name: rozemullerTenant
+
 jobs: 
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - name: 'Az CLI login'
       uses: azure/login@v1
-      env:
+      with:
           client-id: ${{ secrets.CLIENT_ID }}
           tenant-id: ${{ secrets.TENANT_ID }}
           subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
