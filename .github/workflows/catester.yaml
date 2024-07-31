@@ -13,7 +13,7 @@ jobs:
     steps:
     - name: 'Az CLI login'
       uses: azure/login@v1
-      with:
+      env:
           client-id: ${{ secrets.CLIENT_ID }}
           tenant-id: ${{ secrets.TENANT_ID }}
           subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
