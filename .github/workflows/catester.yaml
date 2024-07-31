@@ -1,4 +1,4 @@
-name: Run Azure Login with OpenID Connect
+name: Run Tenant Security Tests
 on: 
       workflow_dispatch:
       push:
@@ -11,14 +11,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: 'Az CLI login'
-      uses: azure/login@v2.1.0
-      with:
-          client-id: ${{ secrets.CLIENT_ID }}
-          tenant-id: ${{ secrets.TENANT_ID }}
-          allow-no-subscriptions: true    
     - name: Run Maester action
       uses: maester365/maester@main
       with:
         client_id: ${{ secrets.CLIENT_ID }}
         tenant_id: ${{ secrets.TENANT_ID }}
+    - name: PowerShell script
+      # You may pin to the exact commit or the version.
+      # uses: Amadevus/pwsh-script@97a8b211a5922816aa8a69ced41fa32f23477186
+      uses: Amadevus/pwsh-script@v2.0.3
+      with:
+          # PowerShell script to execute in Actions-hydrated context
+          script: |
+                ls
+          
