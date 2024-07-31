@@ -17,8 +17,8 @@ jobs:
           client-id: ${{ secrets.CLIENT_ID }}
           tenant-id: ${{ secrets.TENANT_ID }}
           allow-no-subscriptions: true    
-    - name: 'Run Azure CLI commands'
-      run: |
-          Install-Module Maester -Scope CurrentUser
-          Connect-Maester
-          Invoke-Maester
+    - name: Run Maester action
+      uses: maester365/maester@main
+      with:
+        client_id: ${{ secrets.CLIENT_ID }}
+        tenant_id: ${{ secrets.TENANT_ID }}
