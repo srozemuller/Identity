@@ -4,7 +4,9 @@ on: [push]
 permissions:
       id-token: write
       contents: read
-      
+
+env:
+  name: rozemullerTenant
 jobs: 
   build-and-deploy:
     runs-on: ubuntu-latest
