@@ -12,12 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 'Az CLI login'
-      uses: azure/login@v1
+      uses: azure/login@v2.1.0
       with:
           client-id: ${{ secrets.CLIENT_ID }}
           tenant-id: ${{ secrets.TENANT_ID }}
-          subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-  
+          allow-no-subscriptions: true    
     - name: 'Run Azure CLI commands'
       run: |
           az account show
