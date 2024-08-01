@@ -21,9 +21,9 @@ jobs:
       with:
         # Specify the Az PowerShell script here.
         inlineScript: |
-          $tenantId = ${{ secrets.TENANT_ID }}
-          $secMonAppId = ${{ secrets.CLIENT_ID }}
-          $secMonAppSecret = ${{ secrets.CLIENT_SECRET }}
+          $tenantId = '${{ secrets.TENANT_ID }}'
+          $secMonAppId = '${{ secrets.CLIENT_ID }}'
+          $secMonAppSecret = '${{ secrets.CLIENT_SECRET }}'
 
           $scope = [System.Web.HttpUtility]::UrlEncode("https://monitor.azure.com//.default")   
           $body = "client_id=$secMonAppId&scope=$scope&client_secret=$secMonAppSecret&grant_type=client_credentials";
