@@ -21,8 +21,38 @@ jobs:
       with:
         # Specify the Az PowerShell script here.
         inlineScript: |
-          dir .
-          dir .\
-          dir .\test-results
+          $tenantId = ${{ secrets.TENANT_ID }}
+          $secMonAppId = ${{ secrets.CLIENT_ID }}
+          $secMonAppSecret = ${{ secrets.CLIENT_SECRET }}
+
+          $scope = [System.Web.HttpUtility]::UrlEncode("https://monitor.azure.com//.default")   
+          $body = "client_id=$secMonAppId&scope=$scope&client_secret=$secMonAppSecret&grant_type=client_credentials";
+          $headers = @{"Content-Type" = "application/x-www-form-urlencoded" };
+          $loginUri = "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token"
+          $bearerToken = (Invoke-RestMethod -Uri $loginUri -Method "Post" -Body $body -Headers $headers).access_token
+
+          $allobjects = [System.Collections.ArrayList]@()
+          $testSimple =[System.Collections.ArrayList]@()
+          foreach ($test in $tests.Tests) {
+              $testStripped = @{
+                  "Name" = $test.Name
+                  "Result" = $test.Result
+              }
+              $testSimple.Add($testStripped) | Out-Null
+          }
+          $finalResults = @{
+              Result = $tests.Result
+              FailedCount = $tests.FailedCount
+              PassedCount = $tests.PassedCount
+              SkippedCount = $tests.SkippedCount
+              TotalCount = $tests.TotalCount
+              Tests = $testSimple
+          } 
+          $allobjects.Add($finalResults) | Out-Null
+          $allobjects = $allobjects | ConvertTo-Json -AsArray -Depth 100
+
+          $uri = "{0}/dataCollectionRules/{1}/streams/{2}?api-version=2021-11-01-preview" -f ${{ secrets.INGESTION_URL }}, ${{ secrets.DCR_RULEID }}, "Custom-CaPolicyTesterResults_CL"
+          $monitorHeaders = @{"Authorization" = "Bearer $bearerToken"; "Content-Type" = "application/json" };
+          Invoke-RestMethod -Uri $uri -Method POST -Body $allobjects  -Headers $monitorHeaders
         azPSVersion: latest
             
