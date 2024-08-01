@@ -24,4 +24,5 @@ jobs:
           dir .
           dir .\
           dir .\test-results
+        azPSVersion: latest
             
