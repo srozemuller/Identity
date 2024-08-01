@@ -1,4 +1,4 @@
-name: Run Azure Login with OpenID Connect
+name: Run Tenant Security Tests
 on: 
       workflow_dispatch:
       push:
@@ -11,12 +11,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: 'Az CLI login'
-      uses: azure/login@v2.1.0
-      with:
-          client-id: ${{ secrets.CLIENT_ID }}
-          tenant-id: ${{ secrets.TENANT_ID }}
-          allow-no-subscriptions: true    
     - name: Run Maester action
       uses: maester365/maester@main
       with:
@@ -30,4 +24,4 @@ jobs:
           dir .
           dir .\
           dir .\test-results
-              
+            
