@@ -1,0 +1,12 @@
+{
+    "Result": "Failed",
+    "FailedCount": 62,
+    "PassedCount": 47,
+    "SkippedCount": 24,
+    "TotalCount": 139,
+    "Tests": [
+        {
+            "Name": "EIDSCA.AF01: Authentication Method - FIDO2 security key - State."
+        }
+    ]
+}

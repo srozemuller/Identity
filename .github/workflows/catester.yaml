@@ -22,3 +22,12 @@ jobs:
       with:
         client_id: ${{ secrets.CLIENT_ID }}
         tenant_id: ${{ secrets.TENANT_ID }}
+    - name: Azure PowerShell Action
+      uses: Azure/powershell@v2
+      with:
+        # Specify the Az PowerShell script here.
+        inlineScript: |
+          dir .
+          dir .\
+          dir .\test-results
+              
