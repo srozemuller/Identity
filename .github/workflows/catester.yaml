@@ -51,7 +51,7 @@ jobs:
           $allobjects.Add($finalResults) | Out-Null
           $allobjects = $allobjects | ConvertTo-Json -AsArray -Depth 100
 
-          $uri = "{0}/dataCollectionRules/{1}/streams/{2}?api-version=2021-11-01-preview" -f ${{ secrets.INGESTION_URL }}, ${{ secrets.DCR_RULEID }}, "Custom-CaPolicyTesterResults_CL"
+          $uri = "{0}/dataCollectionRules/{1}/streams/{2}?api-version=2021-11-01-preview" -f '${{ secrets.INGESTION_URL }}', '${{ secrets.DCR_RULEID }}', "Custom-CaPolicyTesterResults_CL"
           $monitorHeaders = @{"Authorization" = "Bearer $bearerToken"; "Content-Type" = "application/json" };
           Invoke-RestMethod -Uri $uri -Method POST -Body $allobjects  -Headers $monitorHeaders
         azPSVersion: latest
