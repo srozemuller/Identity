@@ -31,6 +31,7 @@ jobs:
           $loginUri = "https://login.microsoftonline.com/$tenantId/oauth2/v2.0/token"
           $bearerToken = (Invoke-RestMethod -Uri $loginUri -Method "Post" -Body $body -Headers $headers).access_token
 
+          $tests = get-content '.\test-results\test-results.json' | ConvertFrom-Json
           $allobjects = [System.Collections.ArrayList]@()
           $testSimple =[System.Collections.ArrayList]@()
           foreach ($test in $tests.Tests) {
