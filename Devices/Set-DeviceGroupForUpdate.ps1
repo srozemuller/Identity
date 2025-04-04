@@ -129,17 +129,21 @@ try {
         $devicesResponseList = [System.Collections.ArrayList]@()
         $devicesList = [System.Collections.Generic.List[string]]::new()
         $devicesBatch.ForEach({
-                $response = Invoke-MgGraphRequest -Method POST -Body $_ -Uri "beta/`$batch"
+                $body = $_
+                $response = Invoke-MgGraphRequest -Method POST -Body $body -Uri "beta/`$batch" -OutputType PSObject
                 $devicesResponseList.Add($response) >> $null
             })
         $devicesResponseList.responses | Where-Object {$_.status -eq 200} | ForEach-Object {
             $deviceResponse = $_.body.value
             $deviceToAdd = $deviceResponse | Where-Object {($_.isManaged) -and ($_.approximateLastSignInDateTime -gt (Get-Date).AddDays(-29)) -and ($_.operatingSystem -eq $DeviceType)}
-            $devicesList.Add("https://graph.microsoft.com/beta/directoryObjects/$($deviceToAdd.id)") >> $null
+            foreach ($device in $deviceToAdd) {
+                $devicesList.Add("https://graph.microsoft.com/beta/directoryObjects/$($device.id)") >> $null
+            }
         }
         $deviceBatch = Create-BodyList -bodyList $devicesList
         $deviceBatch.ForEach({
-            Invoke-MgGraphRequest -Method PATCH -Body $_ -Uri "/beta/groups/$($deviceGroup.value.id)"
+            $body = $_
+            Invoke-MgGraphRequest -Method PATCH -Body $body -Uri "/beta/groups/$($deviceGroup.value.id)"
         })
     }
 }
