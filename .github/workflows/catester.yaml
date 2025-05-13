@@ -16,6 +16,13 @@ jobs:
       with:
         client_id: ${{ secrets.CLIENT_ID }}
         tenant_id: ${{ secrets.TENANT_ID }}
+    - name: Azure login (OIDC)
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.CLIENT_ID }}
+        tenant-id: ${{ secrets.TENANT_ID }}
+        subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
+        enable-AzPSSession: true   # prepares Az PowerShell session
     - name: Azure PowerShell Action
       uses: Azure/powershell@v2
       with:
