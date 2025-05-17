@@ -42,9 +42,11 @@ jobs:
           $allobjects = [System.Collections.ArrayList]@()
           $testSimple =[System.Collections.ArrayList]@()
           foreach ($test in $tests.Tests) {
-              $testStripped = @{
+             $testStripped = @{
                   "Name" = $test.Name
                   "Result" = $test.Result
+                  "HelpUrl" = $test.HelpUrl
+                  "Severity" = $test.Severity
               }
               $testSimple.Add($testStripped) | Out-Null
           }
