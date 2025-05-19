@@ -47,6 +47,7 @@ jobs:
                   "Result" = $test.Result
                   "HelpUrl" = $test.HelpUrl
                   "Severity" = $test.Severity
+                  "TestResults" = $test.ResultDetail
               }
               $testSimple.Add($testStripped) | Out-Null
           }
