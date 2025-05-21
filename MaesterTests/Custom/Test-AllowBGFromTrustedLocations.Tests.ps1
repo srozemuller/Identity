@@ -7,6 +7,6 @@ Describe "Check.BreakGlass1" {
         $policiesEnforced = Test-MtConditionalAccessWhatIf -UserId $userId `
         -IncludeApplications $applicationId `
         -Country NL -IpAddress '81.172.218.163'
-        $policiesEnforced.grantControls.builtInControls | Should -Not -Contain "block"
+        $policiesEnforced.grantControls.builtInControls | Should -Not -Contain "block" -Because "It must be possible to use Break Glass from a trusted location"
     }
 }

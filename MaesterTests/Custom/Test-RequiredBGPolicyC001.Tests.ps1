@@ -6,6 +6,6 @@ Describe "Check.BreakGlass1" {
 
         $policiesEnforced = Test-MtConditionalAccessWhatIf -UserId $userId `
         -IncludeApplications $applicationId
-        $policiesEnforced.displayName | Should -Contain "CA001: Require strong multifactor authentication for admins"
+        $policiesEnforced.displayName | Should -Contain "CA001: Require strong multifactor authentication for admins" -Because "The CA001: Require strong multifactor authentication for admins hits admin accounts. If not hit, the account is not an administrator"
     }
 }

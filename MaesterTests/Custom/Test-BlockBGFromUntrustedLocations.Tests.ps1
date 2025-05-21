@@ -6,6 +6,6 @@ Describe "Check.BreakGlass1" {
 
         $policiesEnforced = Test-MtConditionalAccessWhatIf -UserId $userId `
         -IncludeApplications $applicationId
-        $policiesEnforced.grantControls.builtInControls | Should -Contain "block"
+        $policiesEnforced.grantControls.builtInControls | Should -Contain "block" -Because "Break the glass accounts may not log in from untrusted locations"
     }
 }
