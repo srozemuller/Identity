@@ -1,0 +1,61 @@
+{
+  "id": "3d64b222-c73c-46d9-9d1e-9e694dd47090",
+  "templateId": null,
+  "displayName": "CA002: Block break-glass logins from untrusted locations",
+  "createdDateTime": "2023-03-09T20:04:28.3107996Z",
+  "modifiedDateTime": "2023-06-07T07:35:54.7806035Z",
+  "state": "enabled",
+  "partialEnablementStrategy": null,
+  "sessionControls": null,
+  "conditions": {
+    "userRiskLevels": [],
+    "signInRiskLevels": [],
+    "clientAppTypes": [
+      "all"
+    ],
+    "platforms": null,
+    "times": null,
+    "deviceStates": null,
+    "devices": null,
+    "clientApplications": null,
+    "applications": {
+      "includeApplications": [
+        "All"
+      ],
+      "excludeApplications": [],
+      "includeUserActions": [],
+      "includeAuthenticationContextClassReferences": [],
+      "applicationFilter": null
+    },
+    "users": {
+      "includeUsers": [
+        "602b7044-910a-4155-b3fd-bd36ae7d1e1a"
+      ],
+      "excludeUsers": [],
+      "includeGroups": [],
+      "excludeGroups": [],
+      "includeRoles": [],
+      "excludeRoles": [],
+      "includeGuestsOrExternalUsers": null,
+      "excludeGuestsOrExternalUsers": null
+    },
+    "locations": {
+      "includeLocations": [
+        "All"
+      ],
+      "excludeLocations": [
+        "AllTrusted"
+      ]
+    }
+  },
+  "grantControls": {
+    "operator": "OR",
+    "builtInControls": [
+      "block"
+    ],
+    "customAuthenticationFactors": [],
+    "termsOfUse": [],
+    "authenticationStrength@odata.context": "https://graph.microsoft.com/beta/$metadata#identity/conditionalAccess/policies('3d64b222-c73c-46d9-9d1e-9e694dd47090')/grantControls/authenticationStrength/$entity",
+    "authenticationStrength": null
+  }
+}
